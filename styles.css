@@ -955,3 +955,21 @@ footer {
     object-fit: contain !important;
     padding: 10px !important;
 }
+
+/* Quick Fix for PNG Images */
+.product-image {
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.product-image img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 180px !important;
+    object-fit: contain !important;
+}
+
+.product-image::before {
+    display: none !important;
+}
