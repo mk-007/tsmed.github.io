@@ -911,15 +911,28 @@ footer {
 .product-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* Измените с cover на contain */
     display: block;
     transition: transform 0.3s ease;
     position: relative;
     z-index: 2;
+    background: var(--white); /* Добавьте фон для прозрачных областей */
+    padding: 10px; /* Добавьте отступы вокруг изображения */
 }
 
 .product-card:hover .product-image img {
     transform: scale(1.05);
+}
+
+/* Fallback for missing images */
+.product-image img:not([src]),
+.product-image img[src=""],
+.product-image img[src*="base64"] {
+    opacity: 0.7;
+}
+
+.product-image img[src*="base64"] + .product-image::before {
+    opacity: 0.05;
 }
 
 /* Fallback for missing images */
