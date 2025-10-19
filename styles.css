@@ -1762,3 +1762,146 @@ footer {
         margin-right: 0 !important;
     }
 }
+
+
+
+
+/* Consultation Button Fix */
+.btn-primary {
+    background: var(--primary) !important;
+    color: var(--white) !important;
+    border: 2px solid var(--primary) !important;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: var(--white) !important;
+    transform: translateY(-2px);
+}
+
+/* Ensure button text is visible */
+.comparison-actions .btn {
+    color: var(--white) !important;
+    font-weight: 600;
+}
+
+.comparison-actions .btn i {
+    color: var(--white) !important;
+}
+
+@media (max-width: 768px) {
+    .comparison-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .comparison-actions .btn {
+        min-width: 250px;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+
+/* Universal button styles for comparison section */
+.comparison-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.comparison-actions .btn {
+    min-width: 200px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Print button - light theme */
+.comparison-actions .btn.btn-secondary {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    color: #1f2937 !important;
+    border-color: #e5e7eb !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-actions .btn.btn-secondary:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    color: #111827 !important;
+    border-color: #d1d5db !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.comparison-actions .btn.btn-secondary i {
+    color: #6b7280 !important;
+}
+
+/* Consultation button - blue theme */
+.comparison-actions .btn.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    color: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.comparison-actions .btn.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1e40af 100%) !important;
+    color: #ffffff !important;
+    border-color: var(--primary-dark) !important;
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+}
+
+.comparison-actions .btn.btn-primary i {
+    color: #ffffff !important;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .search-container-centered .search-input {
+        padding: 14px 50px 14px 20px;
+        font-size: 1rem;
+        border-width: 2px;
+    }
+    
+    .search-container-centered .search-btn {
+        right: 35px;
+    }
+    
+    .search-container-centered .search-clear {
+        right: 8px;
+    }
+}
+
+
+
+/* Maximum Contrast Quick Fix */
+.search-container-centered .search-input {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.search-container-centered .search-input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5) !important;
+}
+
+.search-container-centered .search-input::placeholder {
+    color: #666666 !important;
+}

@@ -217,7 +217,6 @@ class CategoryPage {
         this.carouselState.nextBtn.disabled = this.carouselState.currentSlide >= maxSlide;
     }
 
-    // ... остальные методы (для таблицы сравнения) остаются без изменений ...
     initComparisonTable() {
         this.updateTable();
     }
@@ -380,9 +379,7 @@ class CategoryPage {
                         <a href="${product.link}" class="action-btn detail-btn" title="Подробнее">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <button class="action-btn contact-btn" title="Запросить цену" onclick="contactAboutProduct(${product.id})">
-                            <i class="fas fa-envelope"></i>
-                        </button>
+
                     </div>
                 </td>
             </tr>
@@ -412,7 +409,171 @@ class CategoryPage {
     }
 
     printTable() {
-        // ... код printTable остается без изменений ...
+        try {
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('Пожалуйста, разрешите всплывающие окна для печати таблицы');
+                return;
+            }
+            
+            // Создаем упрощенную таблицу без фотографий и столбца действий
+            const simplifiedTable = document.createElement('table');
+            simplifiedTable.className = 'comparison-table';
+            simplifiedTable.style.width = '100%';
+            simplifiedTable.style.borderCollapse = 'collapse';
+            
+            // Создаем заголовок таблицы
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            
+            // Заголовки кроме последнего (Действия)
+            const originalHeaders = document.querySelectorAll('.comparison-table thead th');
+            originalHeaders.forEach((th, index) => {
+                if (index < originalHeaders.length - 1) { // Пропускаем последний столбец
+                    const newTh = document.createElement('th');
+                    newTh.textContent = th.textContent.replace(/[↑↓]/g, '').trim();
+                    newTh.style.border = '1px solid #000';
+                    newTh.style.padding = '8px';
+                    newTh.style.backgroundColor = '#f5f5f5';
+                    newTh.style.fontWeight = 'bold';
+                    headerRow.appendChild(newTh);
+                }
+            });
+            
+            thead.appendChild(headerRow);
+            simplifiedTable.appendChild(thead);
+            
+            // Создаем тело таблицы
+            const tbody = document.createElement('tbody');
+            const originalRows = document.querySelectorAll('.comparison-table tbody tr');
+            
+            originalRows.forEach(originalRow => {
+                const newRow = document.createElement('tr');
+                const cells = originalRow.querySelectorAll('td');
+                
+                cells.forEach((cell, index) => {
+                    if (index < cells.length - 1) { // Пропускаем последний столбец (Действия)
+                        const newCell = document.createElement('td');
+                        newCell.style.border = '1px solid #000';
+                        newCell.style.padding = '8px';
+                        newCell.style.verticalAlign = 'top';
+                        
+                        if (index === 0) {
+                            // Для первого столбца берем только название товара
+                            const productName = cell.querySelector('strong');
+                            const productCategory = cell.querySelector('.product-category');
+                            if (productName) {
+                                newCell.innerHTML = `<strong>${productName.textContent}</strong>`;
+                                if (productCategory) {
+                                    newCell.innerHTML += `<br><small>${productCategory.textContent}</small>`;
+                                }
+                            } else {
+                                newCell.textContent = cell.textContent;
+                            }
+                        } else {
+                            newCell.textContent = cell.textContent;
+                        }
+                        
+                        newRow.appendChild(newCell);
+                    }
+                });
+                
+                tbody.appendChild(newRow);
+            });
+            
+            simplifiedTable.appendChild(tbody);
+            
+            // Создаем HTML для печати
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Сравнительная таблица - Торгсин</title>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 20px; 
+                            font-size: 12px;
+                            color: #000;
+                        }
+                        table { 
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin: 15px 0;
+                            font-size: 11px;
+                        }
+                        th, td { 
+                            border: 1px solid #333; 
+                            padding: 8px 6px; 
+                            text-align: left; 
+                            vertical-align: top;
+                        }
+                        th { 
+                            background-color: #f5f5f5; 
+                            font-weight: bold;
+                        }
+                        .header { 
+                            text-align: center; 
+                            margin-bottom: 20px;
+                            border-bottom: 2px solid #333;
+                            padding-bottom: 15px;
+                        }
+                        .header h1 {
+                            margin: 0 0 10px 0;
+                            font-size: 18px;
+                            color: #333;
+                        }
+                        .header p {
+                            margin: 5px 0;
+                            font-size: 12px;
+                            color: #666;
+                        }
+                        .footer { 
+                            margin-top: 30px; 
+                            font-size: 10px; 
+                            color: #666;
+                            text-align: center;
+                            border-top: 1px solid #ccc;
+                            padding-top: 10px;
+                        }
+                        @media print {
+                            body { margin: 0.5cm; }
+                            table { page-break-inside: auto; }
+                            tr { page-break-inside: avoid; }
+                            .header { border-bottom-color: #000; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Сравнительная таблица оборудования</h1>
+                        <p><strong>Торгсин - ${this.getCategoryName()}</strong></p>
+                        <p>Дата формирования: ${new Date().toLocaleDateString('ru-RU')}</p>
+                        <p>Время: ${new Date().toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'})}</p>
+                    </div>
+                    ${simplifiedTable.outerHTML}
+                    <div class="footer">
+                        <p><strong>Контактная информация:</strong></p>
+                        <p>Телефон: +7 (831) 462-05-47 | Email: sales@tsmed.ru</p>
+                        <p>ООО "Торгсин" - официальный дистрибьютор медицинского оборудования</p>
+                    </div>
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            
+            // Даем время на загрузку стилей перед печати
+            setTimeout(() => {
+                printWindow.focus();
+                printWindow.print();
+            }, 500);
+            
+        } catch (error) {
+            console.error('Ошибка при печати таблицы:', error);
+            alert('Произошла ошибка при подготовке таблицы к печати. Пожалуйста, попробуйте еще раз.');
+        }
     }
 }
 
@@ -475,25 +636,7 @@ class MobileMenu {
     }
 }
 
-// Global functions
-function contactAboutProduct(productId) {
-    try {
-        const allProducts = [];
-        for (const category in productsByCategory) {
-            allProducts.push(...productsByCategory[category]);
-        }
-        
-        const product = allProducts.find(p => p.id === productId);
-        if (product) {
-            const subject = `Запрос по товару: ${product.name}`;
-            const body = `Здравствуйте!\n\nМеня интересует товар: ${product.name}\n\nПрошу предоставить коммерческое предложение.\n\nС уважением,\n[Ваше имя]`;
-            
-            window.location.href = `mailto:sales@tsmed.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-    } catch (error) {
-        alert('Пожалуйста, свяжитесь с нами:\nТелефон: +7 (831) 462-05-47\nEmail: sales@tsmed.ru');
-    }
-}
+
 
 // Initialize everything
 document.addEventListener('DOMContentLoaded', function() {
