@@ -4,8 +4,8 @@ const productsByCategory = {
             id: 1,
             name: "Камера дезинфекционная ВФЭ-2/0,9 СЗМО",
             description: "Современная дезинфекционная камера для обработки медицинского инструментария и оборудования.",
-            image: 'vfe209.png',
-            link: "product-vfe-2-0-9.html",
+            image: 'images/vfe209.png',
+            link: "products/product-vfe-2-0-9.html",
             specifications: {
                 volume: 0.9,
                 power: 3.5,
@@ -87,7 +87,7 @@ const productsByCategory = {
         {
             id: 9,
             name: "Ламинарный Бокс 1",
-            description: "Автоматический дистиллятор для получения очищенной воды.",
+            description: "Ламинарный бокс модели х.",
             image: 'images/d-25.jpg',
             link: "product-d-25.html"
         }

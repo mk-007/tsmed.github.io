@@ -1726,3 +1726,39 @@ footer {
         padding: 90px 0 30px !important;
     }
 }
+
+/* Quick mobile header height fix */
+@media (max-width: 768px) {
+    header {
+        height: 85px !important;
+        min-height: 85px !important;
+    }
+    
+    .header-container {
+        padding: 22px 0 !important;
+        height: 85px !important;
+        min-height: 85px !important;
+    }
+    
+    .hero,
+    .category-hero {
+        padding-top: 115px !important;
+    }
+}
+
+/* Quick Mobile Header Layout Fix */
+@media (max-width: 768px) {
+    .header-container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        justify-content: space-between !important;
+    }
+    
+    .logo {
+        margin-left: 0 !important;
+    }
+    
+    .mobile-menu-btn {
+        margin-right: 0 !important;
+    }
+}
