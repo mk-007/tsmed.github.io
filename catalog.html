@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО "Торгсин" - Современное медицинское оборудование</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="catalog.js"></script>
+    <script src="find.js"></script>
+
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Торгсин - Медицинское оборудование" class="logo-image">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#about">О компании</a></li>
+                <li><a href="disinfection-chambers.html">Дезинфекционные камеры</a></li>
+                <li><a href="sterilizers.html">Стерилизаторы</a></li>
+                <li><a href="equipment.html">Иное оборудование</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Search Section -->
+<section class="section search-section"></div>
+<section class="section search-section">
+    <div class="container">
+        <div class="search-section-content">
+            <h2 class="search-title">Найдите нужное Вам оборудование</h2>
+            <p class="search-subtitle">Большое количество позиций медицинского оборудования в каталоге</p>
+            
+            <div class="search-container-centered">
+                <div class="search-box">
+                    <input type="text" id="productSearch" placeholder="Например: дезинфекционная камера..." class="search-input">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="search-clear" id="searchClear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            
+            <div class="search-tags">
+                <span>Популярные запросы:</span>
+                <button class="search-tag" data-search="дезинфекционная">Дезинфекционные камеры</button>
+                <button class="search-tag" data-search="стерилизатор">Стерилизаторы</button>
+                <button class="search-tag" data-search="ламинарный">Ламинарные боксы</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Products Section - Дезинфекционные камеры -->
+<section class="section products" id="disinfection-chambers">
+    <div class="container">
+        <h2 class="section-title">Дезинфекционные камеры</h2>
+        <div class="products-carousel">
+            <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" aria-label="Следующий товар">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-track" id="chambersTrack"></div>
+            <div class="carousel-dots" id="chambersDots"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section - Стерилизаторы -->
+<section class="section products" id="sterilizers">
+    <div class="container">
+        <h2 class="section-title">Паровые стерилизаторы</h2>
+        <div class="products-carousel">
+            <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" aria-label="Следующий товар">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-track" id="sterilizersTrack"></div>
+            <div class="carousel-dots" id="sterilizersDots"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section - Дополнительное оборудование -->
+<section class="section products" id="additional-equipment">
+    <div class="container">
+        <h2 class="section-title">Другое оборудование</h2>
+        <div class="products-carousel">
+            <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" aria-label="Следующий товар">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-track" id="equipmentTrack"></div>
+            <div class="carousel-dots" id="equipmentDots"></div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contacts Section -->
+    <section class="section" id="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                    <h3>Телефоны</h3>
+                    <p>+7 (831) 462-05-47<br>+7 (831) 462-05-48</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <h3>Электронная почта</h3>
+                    <p>info@tsmed.ru<br>sales@tsmed.ru</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <h3>Наш адрес</h3>
+                    <p>г. Нижний Новгород, ул. Горная, д.11к3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <p>ООО "Торгсин" - официальный дистрибьютор АО «Медоборудование» с эксклюзивным правом продажи на территории РФ. Мы обеспечиваем медицинские учреждения современным и надежным оборудованием.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Продукция</h3>
+                    <ul>
+                    <li><a href="disinfection-chambers.html"><i class="fas fa-chevron-right"></i> Дезинфекционные камеры</a></li>
+                    <li><a href="sterilizers.html"><i class="fas fa-chevron-right"></i> Паровые стерилизаторы</a></li>
+                    <li><a href="equipment.html"><i class="fas fa-chevron-right"></i> Другое оборудование</a></li>
+                </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (831) 462-05-47</p>
+                    <p><i class="fas fa-envelope"></i> info@tsmed.ru</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-18:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ООО "Торгсин". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+
+        // Carousel functionality
+
+class ProductCarousel {
+    constructor(containerId, products) {
+        this.container = document.getElementById(containerId);
+        this.track = this.container.querySelector('.carousel-track');
+        this.dotsContainer = this.container.querySelector('.carousel-dots');
+        this.prevBtn = this.container.querySelector('.carousel-btn.prev');
+        this.nextBtn = this.container.querySelector('.carousel-btn.next');
+        
+        this.products = products;
+        this.currentSlide = 0;
+        this.slidesToShow = 3;
+        this.totalSlides = products.length;
+        
+        this.init();
+    }
+    
+    init() {
+        this.updateSlidesToShow();
+        this.renderProducts();
+        this.renderDots();
+        this.setupEventListeners();
+        this.updateCarousel();
+        
+        window.addEventListener('resize', () => {
+            this.updateSlidesToShow();
+            this.renderDots();
+            this.updateCarousel();
+        });
+    }
+    
+    updateSlidesToShow() {
+        if (window.innerWidth <= 768) {
+            this.slidesToShow = 1;
+        } else if (window.innerWidth <= 1024) {
+            this.slidesToShow = 2;
+        } else {
+            this.slidesToShow = 3;
+        }
+    }
+    
+    renderProducts() {
+        this.track.innerHTML = this.products.map(product => `
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-fallback" style="display: none; flex-direction: column; align-items: center; gap: 10px;">
+                        <i class="fas fa-cube" style="font-size: 3rem; color: #2563eb; opacity: 0.7;"></i>
+                        <span style="color: var(--text-light); font-size: 0.9rem; text-align: center;">${product.name}</span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <a href="${product.link}" class="product-link">
+                        <span>Подробнее</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    renderDots() {
+        const totalDots = Math.ceil(this.totalSlides / this.slidesToShow);
+        this.dotsContainer.innerHTML = '';
+        
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('button');
+            dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Перейти к слайду ${i + 1}`);
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+    
+    updateCarousel() {
+        const cardWidth = this.track.querySelector('.product-card')?.offsetWidth + 24 || 300;
+        const translateX = -this.currentSlide * cardWidth * this.slidesToShow;
+        this.track.style.transform = `translateX(${translateX}px)`;
+        
+        // Update dots
+        const dots = this.dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+        
+        // Update button states
+        const maxSlide = Math.ceil(this.totalSlides / this.slidesToShow) - 1;
+        this.prevBtn.disabled = this.currentSlide === 0;
+        this.nextBtn.disabled = this.currentSlide >= maxSlide;
+    }
+    
+    nextSlide() {
+        const maxSlide = Math.ceil(this.totalSlides / this.slidesToShow) - 1;
+        if (this.currentSlide < maxSlide) {
+            this.currentSlide++;
+            this.updateCarousel();
+        }
+    }
+    
+    prevSlide() {
+        if (this.currentSlide > 0) {
+            this.currentSlide--;
+            this.updateCarousel();
+        }
+    }
+    
+    goToSlide(slideIndex) {
+        this.currentSlide = slideIndex;
+        this.updateCarousel();
+    }
+    
+    setupEventListeners() {
+        this.nextBtn.addEventListener('click', () => this.nextSlide());
+        this.prevBtn.addEventListener('click', () => this.prevSlide());
+        
+        // Touch support for mobile
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        
+        this.track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            this.track.style.transition = 'none';
+        });
+        
+        this.track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+            const cardWidth = this.track.querySelector('.product-card')?.offsetWidth + 24 || 300;
+            const translateX = -this.currentSlide * cardWidth * this.slidesToShow + diff;
+            this.track.style.transform = `translateX(${translateX}px)`;
+        });
+        
+        this.track.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            this.track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            const diff = currentX - startX;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    this.prevSlide();
+                } else {
+                    this.nextSlide();
+                }
+            } else {
+                this.updateCarousel();
+            }
+        });
+    }
+}
+
+
+// Initialize carousels when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Create carousels for each category
+    const chambersCarousel = new ProductCarousel('disinfection-chambers', productsByCategory.chambers);
+    const sterilizersCarousel = new ProductCarousel('sterilizers', productsByCategory.sterilizers);
+    const equipmentCarousel = new ProductCarousel('additional-equipment', productsByCategory.equipment);
+    
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (navMenu.classList.contains('active')) {
+            icon.className = 'fas fa-times';
+        } else {
+            icon.className = 'fas fa-bars';
+        }
+    });
+    
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('#navMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+        });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

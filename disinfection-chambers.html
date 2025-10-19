@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дезинфекционные камеры - ООО "Торгсин"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Торгсин" class="logo-image">
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="index.html#about">О компании</a></li>
+                    <li><a href="disinfection-chambers.html">Дезинфекционные камеры</a></li>
+                    <li><a href="sterilizers.html">Стерилизаторы</a></li>
+                    <li><a href="equipment.html">Оборудование</a></li>
+                    <li><a href="index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Category Hero -->
+    <section class="hero category-hero">
+        <div class="container">
+            <div class="category-breadcrumbs">
+                <a href="index.html">Главная</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Дезинфекционные камеры</span>
+            </div>
+            <h1>Дезинфекционные камеры</h1>
+            <p>Профессиональное оборудование для дезинфекции и стерилизации медицинского инструментария</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="section search-section">
+        <div class="container">
+            <div class="search-section-content">
+                <h2 class="search-title">Найдите нужную модель</h2>
+                <p class="search-subtitle">Поиск по характеристикам и описанию оборудования</p>
+                
+                <div class="search-container-centered">
+                    <div class="search-box">
+                        <input type="text" 
+                               id="productSearch" 
+                               placeholder="Например: ВФЭ-2/0,9, паровой, ..." 
+                               class="search-input">
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Carousel -->
+    <section class="section products" id="products">
+        <div class="container">
+            <h2 class="section-title">Все модели дезинфекционных камер</h2>
+            <div class="products-carousel">
+                <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" aria-label="Следующий товар">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-track" id="carouselTrack"></div>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section comparison-section">
+        <div class="container">
+            <h2 class="section-title">Сравнительная таблица</h2>
+            <p class="comparison-subtitle">Сравните характеристики всех моделей и выберите подходящую</p>
+            
+            <div class="comparison-controls">
+                <div class="sort-controls">
+                    <label for="sortSelect">Сортировка:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="name">По названию</option>
+                        <option value="volume">По объему камеры</option>
+                        <option value="power">По мощности</option>
+                    </select>
+                </div>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">Все модели</button>
+                    <button class="filter-btn" data-filter="compact">Компактные</button>
+                    <button class="filter-btn" data-filter="professional">Профессиональные</button>
+                </div>
+            </div>
+
+            <div class="comparison-table-container">
+                <table class="comparison-table" id="comparisonTable">
+    <thead>
+        <tr>
+            <th data-sort="name">
+                Модель
+                <span class="sort-indicator"></span>
+            </th>
+            <th data-sort="volume">
+                Объем камеры (м³)
+                <span class="sort-indicator"></span>
+            </th>
+            <th data-sort="power">
+                Мощность (кВт)
+                <span class="sort-indicator"></span>
+            </th>
+            <th data-sort="temperature">
+                Температура (°C)
+                <span class="sort-indicator"></span>
+            </th>
+            <th data-sort="dimensions">
+                Габариты (мм)
+                <span class="sort-indicator"></span>
+            </th>
+            <th data-sort="weight">
+                Вес (кг)
+                <span class="sort-indicator"></span>
+            </th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody id="comparisonTableBody">
+        <!-- Данные заполняются через JavaScript -->
+    </tbody>
+</table>
+            </div>
+
+            <div class="comparison-actions">
+                <button class="btn btn-secondary" id="printTable">
+                    <i class="fas fa-print"></i>
+                    Распечатать таблицу
+                </button>
+                <button class="btn btn-primary" id="contactForDetails">
+                    <i class="fas fa-envelope"></i>
+                    Получить консультацию
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section class="section" id="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                    <h3>Телефоны</h3>
+                    <p>+7 (831) 462-05-47<br>+7 (831) 462-05-48</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <h3>Электронная почта</h3>
+                    <p>info@tsmed.ru<br>sales@tsmed.ru</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <h3>Наш адрес</h3>
+                    <p>Нижний Новгород, ул. Горная, д.11к3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <p>ООО "Торгсин" - официальный дистрибьютор АО «Медоборудование» с эксклюзивным правом продажи на территории РФ.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Категории</h3>
+                    <ul>
+                        <li><a href="disinfection-chambers.html"><i class="fas fa-chevron-right"></i> Дезинфекционные камеры</a></li>
+                        <li><a href="sterilizers.html"><i class="fas fa-chevron-right"></i> Паровые стерилизаторы</a></li>
+                        <li><a href="equipment.html"><i class="fas fa-chevron-right"></i> Другое оборудование</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (831) 462-05-47</p>
+                    <p><i class="fas fa-envelope"></i> info@tsmed.ru</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-18:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ООО "Торгсин". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="catalog.js"></script>
+    <script src="find.js"></script>
+    <script src="category.js"></script>
+</body>
+</html>

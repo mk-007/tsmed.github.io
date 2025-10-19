@@ -5,21 +5,45 @@ const productsByCategory = {
             name: "Камера дезинфекционная ВФЭ-2/0,9 СЗМО",
             description: "Современная дезинфекционная камера для обработки медицинского инструментария и оборудования.",
             image: 'vfe209.png',
-            link: "product-vfe-2-0-9.html"
+            link: "product-vfe-2-0-9.html",
+            specifications: {
+                volume: 0.9,
+                power: 3.5,
+                temperature: "100-120",
+                dimensions: "1200×800×1800",
+                weight: 250,
+                price: "индивидуально"
+            }
         },
         {
             id: 2,
             name: "Камера дезинфекционная ВФС 2/1,4 СЗМО",
             description: "Профессиональное оборудование для дезинфекции с расширенной камерой обработки.",
             image: 'images/vfs-2-1-4.jpg',
-            link: "product-vfs-2-1-4.html"
+            link: "product-vfs-2-1-4.html",
+            specifications: {
+                volume: 1.4,
+                power: 4.2,
+                temperature: "100-125",
+                dimensions: "1400×900×2000",
+                weight: 320,
+                price: "индивидуально"
+            }
         },
         {
             id: 3,
             name: "Камера дезинфекционная КВФ-3/2,1 СЗМО",
             description: "Инновационная камера для дезинфекции с увеличенной камерой обработки.",
             image: 'images/kvf-3-2-1.jpg',
-            link: "product-kvf-3-2-1.html"
+            link: "product-kvf-3-2-1.html",
+            specifications: {
+                volume: 2.1,
+                power: 5.8,
+                temperature: "100-130",
+                dimensions: "1600×1000×2200",
+                weight: 450,
+                price: "индивидуально"
+            }
         }
     ],
     sterilizers: [
@@ -55,14 +79,14 @@ const productsByCategory = {
         },
         {
             id: 8,
-            name: "Сушильный шкаф ШС-80",
+            name: "Ветеринарное оборудование",
             description: "Профессиональный сушильный шкаф для медицинских инструментов.",
             image: 'images/shc-80.jpg',
             link: "product-shc-80.html"
         },
         {
             id: 9,
-            name: "Дистиллятор Д-25",
+            name: "Ламинарный Бокс 1",
             description: "Автоматический дистиллятор для получения очищенной воды.",
             image: 'images/d-25.jpg',
             link: "product-d-25.html"
