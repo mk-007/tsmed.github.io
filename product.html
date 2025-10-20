@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО Торгсин - медицинское оборудование</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Торгсин - Медицинское оборудование" class="logo-image">
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="index.html#about">О компании</a></li>
+                    <li><a href="disinfection-chambers.html">Дезинфекционные камеры</a></li>
+                    <li><a href="sterilizers.html">Стерилизаторы</a></li>
+                    <li><a href="equipment.html">Оборудование</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Product Hero -->
+    <section class="hero product-hero">
+        <div class="container">
+            <div class="product-breadcrumbs">
+                <a href="index.html">Главная</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="#" id="categoryLink">Категория</a>
+                <i class="fas fa-chevron-right"></i>
+                <span id="productNameBreadcrumb">Товар</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Content -->
+    <section class="section product-section">
+        <div class="container">
+            <div class="product-layout">
+                <!-- Gallery -->
+                <div class="product-gallery">
+                    <div class="gallery-main">
+                        <img id="mainImage" src="" alt="" class="main-product-image">
+                    </div>
+                    <div class="gallery-thumbnails" id="galleryThumbnails">
+                        <!-- Thumbnails will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 id="productTitle">Название товара</h1>
+                    <p class="product-description" id="productDescription">Описание товара</p>
+                    
+                    <div class="product-specs">
+                        <h3>Основные характеристики</h3>
+                        <div class="specs-grid" id="specsGrid">
+                            <!-- Specifications will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="price-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Цена:</strong> Индивидуальный расчет для каждого заказчика. Для получения коммерческого предложения свяжитесь с нашими менеджерами.</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn btn-secondary" onclick="window.location.href='index.html#contacts'">
+                            <i class="fas fa-phone"></i>
+                            Позвонить нам
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section class="section documentation-section">
+        <div class="container">
+            <h2 class="section-title">Документация</h2>
+            <div class="documents-grid" id="documentsGrid">
+                <!-- Documents will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products 
+    <section class="section related-products">
+        <div class="container">
+            <h2 class="section-title">Сопутствующее оборудование</h2>
+            <div class="products-carousel">
+                <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" aria-label="Следующий товар">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-track" id="relatedProductsTrack"></div>
+                <div class="carousel-dots" id="relatedProductsDots"></div>
+            </div>
+        </div>
+    </section>
+-->
+    <!-- Contacts Section -->
+    <section class="section" id="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                    <h3>Телефоны</h3>
+                    <p>+7 (831) 462-05-47</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <h3>Электронная почта</h3>
+                    <p>info@tsmed.ru<br>sales@tsmed.ru</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <h3>Наш адрес</h3>
+                    <p>г. Нижний Новгород, ул. Горная, д. 11к3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <p>ООО "Торгсин" - официальный дистрибьютор АО «Медоборудование» с эксклюзивным правом продажи на территории РФ.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Категории</h3>
+                    <ul>
+                        <li><a href="disinfection-chambers.html"><i class="fas fa-chevron-right"></i> Дезинфекционные камеры</a></li>
+                        <li><a href="sterilizers.html"><i class="fas fa-chevron-right"></i> Паровые стерилизаторы</a></li>
+                        <li><a href="equipment.html"><i class="fas fa-chevron-right"></i> Дополнительное оборудование</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (831) 462-05-47</p>
+                    <p><i class="fas fa-envelope"></i> info@tsmed.ru</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-18:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ООО "Торгсин". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="catalog.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>

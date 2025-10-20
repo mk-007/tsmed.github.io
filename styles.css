@@ -1763,7 +1763,362 @@ footer {
     }
 }
 
+/* Product Page Styles */
+.product-hero {
+    padding: 120px 0 40px;
+    background: var(--gray-50);
+}
 
+.product-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.product-breadcrumbs a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.product-breadcrumbs a:hover {
+    color: var(--primary);
+}
+
+.product-breadcrumbs i {
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Product Gallery */
+/* Balanced Compact Gallery */
+.product-gallery {
+    position: sticky;
+    top: 100px;
+    max-width: 530px;
+}
+
+.gallery-main {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: var(--shadow);
+    margin-bottom: 15px;
+    text-align: center;
+    border: 1px solid var(--gray-200);
+}
+
+.main-product-image {
+    max-width: 100%;
+    height: 280px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.gallery-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+    gap: 8px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.thumbnail {
+    width: 55px;
+    height: 55px;
+    border: 2px solid var(--gray-300);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.thumbnail.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.thumbnail:hover {
+    border-color: var(--primary);
+    transform: scale(1.08);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Product Info */
+.product-info h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.product-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+.product-specs {
+    margin-bottom: 30px;
+}
+
+.product-specs h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.specs-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.spec-label {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.spec-value {
+    color: var(--text-light);
+    text-align: right;
+}
+
+.price-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+    color: #856404;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.price-notice i {
+    color: #856404;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.product-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 28px;
+    font-size: 1.05rem;
+}
+
+/* Documentation Section */
+.documentation-section {
+    background: var(--gray-50);
+}
+
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.document-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.document-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.document-icon {
+    background: var(--primary);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.document-info {
+    flex: 1;
+}
+
+.document-info h4 {
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.document-info p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.btn-download {
+    background: var(--primary);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-download:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.no-documents {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+    grid-column: 1 / -1;
+}
+
+.no-documents i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+    color: var(--gray-400);
+}
+
+/* Related Products */
+.related-products {
+    background: var(--white);
+}
+
+/* Product Not Found */
+.product-not-found {
+    text-align: center;
+    padding: 100px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.product-not-found h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.product-not-found p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .product-layout {
+        gap: 40px;
+    }
+    
+    .product-info h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .product-gallery {
+        position: static;
+    }
+    
+    .main-product-image {
+        height: 300px;
+    }
+    
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .product-actions .btn {
+        min-width: 100%;
+    }
+    
+    .documents-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-hero {
+        padding: 100px 0 30px;
+    }
+    
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+    
+    .spec-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .spec-value {
+        text-align: left;
+    }
+}
 
 
 /* Consultation Button Fix */
