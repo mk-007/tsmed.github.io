@@ -2,9 +2,10 @@
 class CategoryPage {
     constructor(category) {
         this.category = category;
+        this.config = tableConfig[category] || tableConfig.chambers;
         this.products = this.getCategoryProducts(category);
         this.filteredProducts = [...this.products];
-        this.currentSort = 'name';
+        this.currentSort = this.config.sortOptions[0]?.value || 'name';
         this.sortDirection = 'asc';
         this.carouselState = {
             currentSlide: 0,
@@ -118,14 +119,11 @@ class CategoryPage {
     }
 
     setupCarouselEvents() {
-        // Кнопки вперед/назад
         this.carouselState.nextBtn.addEventListener('click', () => this.nextSlide());
         this.carouselState.prevBtn.addEventListener('click', () => this.prevSlide());
 
-        // Touch events для мобильных
         this.setupTouchEvents();
 
-        // Ресайз
         window.addEventListener('resize', () => {
             this.updateSlidesToShow();
             this.renderDots();
@@ -203,7 +201,6 @@ class CategoryPage {
         const translateX = -this.carouselState.currentSlide * cardWidth * this.carouselState.slidesToShow;
         this.carouselState.track.style.transform = `translateX(${translateX}px)`;
         
-        // Обновляем точки
         if (this.carouselState.dotsContainer) {
             const dots = this.carouselState.dotsContainer.querySelectorAll('.carousel-dot');
             dots.forEach((dot, index) => {
@@ -211,18 +208,69 @@ class CategoryPage {
             });
         }
         
-        // Обновляем состояние кнопок
         const maxSlide = Math.ceil(this.products.length / this.carouselState.slidesToShow) - 1;
         this.carouselState.prevBtn.disabled = this.carouselState.currentSlide === 0;
         this.carouselState.nextBtn.disabled = this.carouselState.currentSlide >= maxSlide;
     }
 
     initComparisonTable() {
+        this.renderTableHeaders();
         this.updateTable();
     }
 
+    renderTableHeaders() {
+        const thead = document.querySelector('.comparison-table thead tr');
+        const sortSelect = document.getElementById('sortSelect');
+        
+        if (!thead) {
+            console.error('Table header not found');
+            return;
+        }
+
+        thead.innerHTML = '';
+        
+        this.config.columns
+            .filter(column => column.showInTable)
+            .forEach(column => {
+                const th = document.createElement('th');
+                
+                if (column.sortable) {
+                    th.setAttribute('data-sort', column.key);
+                    th.innerHTML = `
+                        ${column.label}
+                        <span class="sort-indicator"></span>
+                    `;
+                    th.style.cursor = 'pointer';
+                } else {
+                    th.textContent = column.label;
+                }
+                
+                thead.appendChild(th);
+            });
+
+        if (sortSelect) {
+            sortSelect.innerHTML = this.config.sortOptions
+                .map(option => `<option value="${option.value}">${option.label}</option>`)
+                .join('');
+        }
+
+        this.renderFilters();
+    }
+
+    renderFilters() {
+        const filtersContainer = document.querySelector('.filter-buttons');
+        if (!filtersContainer || !this.config.filters) return;
+
+        filtersContainer.innerHTML = this.config.filters
+            .map(filter => `
+                <button class="filter-btn ${filter.key === 'all' ? 'active' : ''}" 
+                        data-filter="${filter.key}">
+                    ${filter.label}
+                </button>
+            `).join('');
+    }
+
     setupEventListeners() {
-        // Sort select
         const sortSelect = document.getElementById('sortSelect');
         if (sortSelect) {
             sortSelect.addEventListener('change', (e) => {
@@ -232,21 +280,21 @@ class CategoryPage {
             });
         }
 
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
                 
                 const filter = e.target.dataset.filter;
                 this.applyFilter(filter);
-            });
+            }
         });
 
-        // Table header sorting
-        document.querySelectorAll('.comparison-table th[data-sort]').forEach(th => {
-            th.addEventListener('click', () => {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('th[data-sort]')) {
+                const th = e.target.closest('th[data-sort]');
                 const sortField = th.dataset.sort;
+                
                 if (this.currentSort === sortField) {
                     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
                 } else {
@@ -254,10 +302,9 @@ class CategoryPage {
                     this.sortDirection = 'asc';
                 }
                 this.updateTable();
-            });
+            }
         });
 
-        // Print table
         const printBtn = document.getElementById('printTable');
         if (printBtn) {
             printBtn.addEventListener('click', () => {
@@ -265,7 +312,6 @@ class CategoryPage {
             });
         }
 
-        // Contact button
         const contactBtn = document.getElementById('contactForDetails');
         if (contactBtn) {
             contactBtn.addEventListener('click', () => {
@@ -274,55 +320,22 @@ class CategoryPage {
         }
     }
 
-    applyFilter(filter) {
-        switch(filter) {
-            case 'compact':
-                this.filteredProducts = this.products.filter(p => {
-                    const volume = p.specifications?.volume || p.volume || 0;
-                    return volume < 1.0;
-                });
-                break;
-            case 'professional':
-                this.filteredProducts = this.products.filter(p => {
-                    const volume = p.specifications?.volume || p.volume || 0;
-                    return volume >= 1.0;
-                });
-                break;
-            default:
-                this.filteredProducts = [...this.products];
+    applyFilter(filterKey) {
+        const filter = this.config.filters?.find(f => f.key === filterKey);
+        
+        if (filter && filter.condition) {
+            this.filteredProducts = this.products.filter(filter.condition);
+        } else {
+            this.filteredProducts = [...this.products];
         }
+        
         this.updateTable();
     }
 
     sortProducts() {
         this.filteredProducts.sort((a, b) => {
-            let aValue, bValue;
-
-            switch(this.currentSort) {
-                case 'name':
-                    aValue = a.name;
-                    bValue = b.name;
-                    break;
-                case 'volume':
-                    aValue = a.specifications?.volume || a.volume || 0;
-                    bValue = b.specifications?.volume || b.volume || 0;
-                    break;
-                case 'power':
-                    aValue = a.specifications?.power || a.power || 0;
-                    bValue = b.specifications?.power || b.power || 0;
-                    break;
-                case 'temperature':
-                    aValue = a.specifications?.temperature || a.temperature || 0;
-                    bValue = b.specifications?.temperature || b.temperature || 0;
-                    break;
-                case 'price':
-                    aValue = a.specifications?.price || a.price || 0;
-                    bValue = b.specifications?.price || b.price || 0;
-                    break;
-                default:
-                    aValue = a.name;
-                    bValue = b.name;
-            }
+            let aValue = this.getProductValue(a, this.currentSort);
+            let bValue = this.getProductValue(b, this.currentSort);
 
             if (this.sortDirection === 'desc') {
                 [aValue, bValue] = [bValue, aValue];
@@ -331,16 +344,37 @@ class CategoryPage {
             if (typeof aValue === 'string') {
                 return aValue.localeCompare(bValue);
             } else {
-                return aValue - bValue;
+                const numA = this.parseNumericValue(aValue);
+                const numB = this.parseNumericValue(bValue);
+                return (numA || 0) - (numB || 0);
             }
         });
     }
 
+    parseNumericValue(value) {
+        if (typeof value === 'number') return value;
+        if (typeof value !== 'string') return 0;
+        
+        const numericString = value.replace(/[^\d,.-]/g, '').replace(',', '.');
+        return parseFloat(numericString) || 0;
+    }
+
+    getProductValue(product, key) {
+        return product.specifications?.[key] || product[key] || '-';
+    }
+
     updateTable() {
+        const tbody = document.getElementById('comparisonTableBody');
+        if (!tbody) {
+            console.error('Table body not found');
+            return;
+        }
+
         if (this.filteredProducts.length === 0) {
-            document.getElementById('comparisonTableBody').innerHTML = `
+            const columnsCount = this.config.columns.filter(col => col.showInTable).length;
+            tbody.innerHTML = `
                 <tr>
-                    <td colspan="7" style="text-align: center; padding: 40px;">
+                    <td colspan="${columnsCount}" style="text-align: center; padding: 40px;">
                         <i class="fas fa-search" style="font-size: 3rem; color: var(--text-light); margin-bottom: 15px; display: block;"></i>
                         <p>Товары не найдены</p>
                     </td>
@@ -350,12 +384,29 @@ class CategoryPage {
         }
 
         this.sortProducts();
-        const tbody = document.getElementById('comparisonTableBody');
+        
+        const visibleColumns = this.config.columns.filter(col => col.showInTable);
         
         tbody.innerHTML = this.filteredProducts.map(product => `
             <tr>
-                <td>
-                    <div class="product-cell">
+                ${visibleColumns.map(column => `
+                    <td>
+                        ${this.renderTableCell(product, column)}
+                    </td>
+                `).join('')}
+            </tr>
+        `).join('');
+
+        this.updateSortIndicators();
+    }
+
+    renderTableCell(product, column) {
+        const value = this.getProductValue(product, column.key);
+        
+        if (column.key === 'name' && column.isLink) {
+            return `
+                <div class="product-cell">
+                    <a href="${product.link}" class="product-link-cell">
                         <div class="product-image-small">
                             <img src="${product.image}" alt="${product.name}" 
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -367,25 +418,12 @@ class CategoryPage {
                             <strong>${product.name}</strong>
                             <span class="product-category">${this.getCategoryName()}</span>
                         </div>
-                    </div>
-                </td>
-                <td>${product.specifications?.volume || product.volume || '-'}</td>
-                <td>${product.specifications?.power || product.power || '-'}</td>
-                <td>${product.specifications?.temperature || product.temperature || '-'}</td>
-                <td>${product.specifications?.dimensions || product.dimensions || '-'}</td>
-                <td>${product.specifications?.weight || product.weight || '-'}</td>
-                <td>
-                    <div class="action-buttons">
-                        <a href="${product.link}" class="action-btn detail-btn" title="Подробнее">
-                            <i class="fas fa-eye"></i>
-                        </a>
-
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
-        this.updateSortIndicators();
+                    </a>
+                </div>
+            `;
+        }
+        
+        return value;
     }
 
     updateSortIndicators() {
@@ -416,66 +454,48 @@ class CategoryPage {
                 return;
             }
             
-            // Создаем упрощенную таблицу без фотографий и столбца действий
+            const visibleColumns = this.config.columns.filter(col => col.showInTable);
+            
             const simplifiedTable = document.createElement('table');
             simplifiedTable.className = 'comparison-table';
             simplifiedTable.style.width = '100%';
             simplifiedTable.style.borderCollapse = 'collapse';
             
-            // Создаем заголовок таблицы
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
             
-            // Заголовки кроме последнего (Действия)
-            const originalHeaders = document.querySelectorAll('.comparison-table thead th');
-            originalHeaders.forEach((th, index) => {
-                if (index < originalHeaders.length - 1) { // Пропускаем последний столбец
-                    const newTh = document.createElement('th');
-                    newTh.textContent = th.textContent.replace(/[↑↓]/g, '').trim();
-                    newTh.style.border = '1px solid #000';
-                    newTh.style.padding = '8px';
-                    newTh.style.backgroundColor = '#f5f5f5';
-                    newTh.style.fontWeight = 'bold';
-                    headerRow.appendChild(newTh);
-                }
+            visibleColumns.forEach(column => {
+                const newTh = document.createElement('th');
+                newTh.textContent = column.label;
+                newTh.style.border = '1px solid #000';
+                newTh.style.padding = '8px';
+                newTh.style.backgroundColor = '#f5f5f5';
+                newTh.style.fontWeight = 'bold';
+                headerRow.appendChild(newTh);
             });
             
             thead.appendChild(headerRow);
             simplifiedTable.appendChild(thead);
             
-            // Создаем тело таблицы
             const tbody = document.createElement('tbody');
-            const originalRows = document.querySelectorAll('.comparison-table tbody tr');
             
-            originalRows.forEach(originalRow => {
+            this.filteredProducts.forEach(product => {
                 const newRow = document.createElement('tr');
-                const cells = originalRow.querySelectorAll('td');
                 
-                cells.forEach((cell, index) => {
-                    if (index < cells.length - 1) { // Пропускаем последний столбец (Действия)
-                        const newCell = document.createElement('td');
-                        newCell.style.border = '1px solid #000';
-                        newCell.style.padding = '8px';
-                        newCell.style.verticalAlign = 'top';
-                        
-                        if (index === 0) {
-                            // Для первого столбца берем только название товара
-                            const productName = cell.querySelector('strong');
-                            const productCategory = cell.querySelector('.product-category');
-                            if (productName) {
-                                newCell.innerHTML = `<strong>${productName.textContent}</strong>`;
-                                if (productCategory) {
-                                    newCell.innerHTML += `<br><small>${productCategory.textContent}</small>`;
-                                }
-                            } else {
-                                newCell.textContent = cell.textContent;
-                            }
-                        } else {
-                            newCell.textContent = cell.textContent;
-                        }
-                        
-                        newRow.appendChild(newCell);
+                visibleColumns.forEach(column => {
+                    const newCell = document.createElement('td');
+                    newCell.style.border = '1px solid #000';
+                    newCell.style.padding = '8px';
+                    newCell.style.verticalAlign = 'top';
+                    
+                    if (column.key === 'name') {
+                        newCell.innerHTML = `<strong>${product.name}</strong><br><small>${this.getCategoryName()}</small>`;
+                    } else {
+                        const value = this.getProductValue(product, column.key);
+                        newCell.textContent = value || '-';
                     }
+                    
+                    newRow.appendChild(newCell);
                 });
                 
                 tbody.appendChild(newRow);
@@ -483,7 +503,6 @@ class CategoryPage {
             
             simplifiedTable.appendChild(tbody);
             
-            // Создаем HTML для печати
             printWindow.document.write(`
                 <!DOCTYPE html>
                 <html>
@@ -564,7 +583,6 @@ class CategoryPage {
             
             printWindow.document.close();
             
-            // Даем время на загрузку стилей перед печати
             setTimeout(() => {
                 printWindow.focus();
                 printWindow.print();
@@ -636,26 +654,48 @@ class MobileMenu {
     }
 }
 
-
+// Wait for all dependencies to load
+function waitForDependencies(callback, maxAttempts = 10) {
+    let attempts = 0;
+    
+    function checkDependencies() {
+        attempts++;
+        
+        if (typeof productsByCategory !== 'undefined' && typeof tableConfig !== 'undefined') {
+            console.log('All dependencies loaded successfully');
+            callback();
+        } else if (attempts < maxAttempts) {
+            console.log(`Waiting for dependencies... (attempt ${attempts}/${maxAttempts})`);
+            setTimeout(checkDependencies, 100);
+        } else {
+            console.error('Failed to load dependencies after', maxAttempts, 'attempts');
+            console.log('productsByCategory:', typeof productsByCategory);
+            console.log('tableConfig:', typeof tableConfig);
+        }
+    }
+    
+    checkDependencies();
+}
 
 // Initialize everything
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize mobile menu
-    new MobileMenu();
+    console.log('DOM loaded, waiting for dependencies...');
     
-    // Initialize category page
-    const path = window.location.pathname;
-    let category = 'chambers';
-    
-    if (path.includes('sterilizers')) {
-        category = 'sterilizers';
-    } else if (path.includes('equipment')) {
-        category = 'equipment';
-    }
-    
-    if (typeof productsByCategory !== 'undefined') {
+    waitForDependencies(function() {
+        // Initialize mobile menu
+        new MobileMenu();
+        
+        // Initialize category page
+        const path = window.location.pathname;
+        let category = 'chambers';
+        
+        if (path.includes('sterilizers')) {
+            category = 'sterilizers';
+        } else if (path.includes('equipment')) {
+            category = 'equipment';
+        }
+        
+        console.log('Initializing category page for:', category);
         new CategoryPage(category);
-    } else {
-        console.error('productsByCategory is not defined');
-    }
+    });
 });

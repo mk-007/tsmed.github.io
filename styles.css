@@ -2260,3 +2260,69 @@ footer {
 .search-container-centered .search-input::placeholder {
     color: #666666 !important;
 }
+
+
+
+/* Enhanced Table Styles */
+.comparison-table th.sortable {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comparison-table th.sortable:hover {
+    background-color: var(--gray-100);
+}
+
+.comparison-table th:not(.sortable) {
+    cursor: default;
+}
+
+/* Mobile table improvements */
+@media (max-width: 768px) {
+    .comparison-table th.sortable {
+        cursor: default;
+        pointer-events: none;
+    }
+    
+    .comparison-table th .sort-indicator {
+        display: none !important;
+    }
+}
+
+
+
+/* Clickable table styles */
+.product-row {
+    transition: background-color 0.2s ease;
+}
+
+.product-row:hover {
+    background-color: var(--gray-50) !important;
+}
+
+.product-cell.clickable {
+    cursor: pointer;
+}
+
+.product-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.product-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+    .product-row {
+        cursor: pointer;
+    }
+    
+    .product-link {
+        display: block;
+        padding: 8px 0;
+    }
+}

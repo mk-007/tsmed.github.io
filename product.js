@@ -1,4 +1,3 @@
-// Product page functionality
 class ProductPage {
     constructor() {
         this.productId = this.getProductIdFromUrl();
@@ -23,7 +22,6 @@ class ProductPage {
     }
 
     findProduct() {
-        // Ищем товар во всех категориях
         for (const category in productsByCategory) {
             this.product = productsByCategory[category].find(p => p.id === this.productId);
             if (this.product) {
@@ -43,7 +41,7 @@ class ProductPage {
     }
 
     updatePageTitle() {
-        document.title = `${this.product.name} - ООО "ТС Мед"`;
+        document.title = `${this.product.name} - ООО "Торгсин"`;
     }
 
     renderGallery() {
@@ -51,21 +49,16 @@ class ProductPage {
         const thumbnailsContainer = document.getElementById('galleryThumbnails');
 
         if (this.product.images && this.product.images.length > 0) {
-            // Устанавливаем главное изображение
             mainImage.src = this.product.images[0];
             mainImage.alt = this.product.name;
-
-            // Создаем миниатюры
             thumbnailsContainer.innerHTML = this.product.images.map((image, index) => `
                 <div class="thumbnail ${index === 0 ? 'active' : ''}" data-image="${image}">
                     <img src="${image}" alt="${this.product.name} - фото ${index + 1}">
                 </div>
             `).join('');
 
-            // Добавляем обработчики для миниатюр
             this.setupGalleryEvents();
         } else {
-            // Если нет дополнительных фото, используем основное изображение
             mainImage.src = this.product.image;
             mainImage.alt = this.product.name;
             thumbnailsContainer.innerHTML = '';
@@ -75,11 +68,8 @@ class ProductPage {
     setupGalleryEvents() {
         document.querySelectorAll('.thumbnail').forEach(thumbnail => {
             thumbnail.addEventListener('click', () => {
-                // Убираем активный класс у всех миниатюр
                 document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                // Добавляем активный класс текущей миниатюре
                 thumbnail.classList.add('active');
-                // Меняем главное изображение
                 document.getElementById('mainImage').src = thumbnail.dataset.image;
             });
         });
@@ -90,25 +80,26 @@ class ProductPage {
         document.getElementById('productDescription').textContent = this.product.description;
     }
 
-    renderSpecifications() {
-        const specsGrid = document.getElementById('specsGrid');
+renderSpecifications() {
+    const specsGrid = document.getElementById('specsGrid');
+    
+    if (this.product.specifications) {
+        // Показываем ВСЕ характеристики на странице товара
+        const specsHTML = Object.entries(this.product.specifications).map(([key, value]) => {
+            const label = this.getSpecLabel(key);
+            return `
+                <div class="spec-item">
+                    <span class="spec-label">${label}:</span>
+                    <span class="spec-value">${value}</span>
+                </div>
+            `;
+        }).join('');
         
-        if (this.product.specifications) {
-            const specsHTML = Object.entries(this.product.specifications).map(([key, value]) => {
-                const label = this.getSpecLabel(key);
-                return `
-                    <div class="spec-item">
-                        <span class="spec-label">${label}:</span>
-                        <span class="spec-value">${value}</span>
-                    </div>
-                `;
-            }).join('');
-            
-            specsGrid.innerHTML = specsHTML;
-        } else {
-            specsGrid.innerHTML = '<p>Характеристики не указаны</p>';
-        }
+        specsGrid.innerHTML = specsHTML;
+    } else {
+        specsGrid.innerHTML = '<p>Характеристики не указаны</p>';
     }
+}
 
     getSpecLabel(key) {
         const labels = {
@@ -117,11 +108,34 @@ class ProductPage {
             'temperature': 'Температура',
             'dimensions': 'Габариты',
             'weight': 'Вес',
+            'square': 'Площадь пола',
             'capacity': 'Вместимость',
             'pressure': 'Давление',
             'voltage': 'Напряжение',
             'material': 'Материал',
-            'warranty': 'Гарантия'
+            'warranty': 'Гарантия',
+            'internal': 'Внутренние размеры',
+            'source': 'Источник пара',
+            'maxloading': 'Норма загрузки белья',
+            'options': 'Варианты исполнения',
+            'closemechanic': 'Механизм закрывания крышки',
+            'humidity': 'Остаточая влажность',
+            'modes': 'Количество режимов стерилизации',
+            'type': 'Тип',
+            'vacuumdry': 'Вакуумная сушка стерилизуемых изделий',
+            'sterboxes': 'Применяемые стерилизационные коробки',
+            'speedpeeple':'Пропускная способность — гигиеническая помывка людей',
+            'speedall':'Гигиеническая помывка одновременно с обработкой одежды',
+            'redytime':'Время подготовки к работе',
+            'setka':'Количество душевых сеток на душевом приборе',
+            'nosilki':'Приспособления для помывки носилочных больных',
+            'cotel':'Паровой котел',
+            'steem': 'Паропроизводительность',
+            'station':'Электростанция',
+            'purpose':'Назначение',
+            'efficiency': 'Производительность',
+            'tan': 'Нагревательные элементы',
+            'quality': 'Качество производимой воды'
         };
         
         return labels[key] || key;
@@ -164,7 +178,7 @@ class ProductPage {
         const categoryNames = {
             'chambers': 'Дезинфекционные камеры',
             'sterilizers': 'Стерилизаторы',
-            'equipment': 'Оборудование'
+            'equipment': 'Дополнительное оборудование'
         };
         
         const categoryName = categoryNames[this.product.category] || 'Категория';
@@ -185,154 +199,6 @@ class ProductPage {
         return pages[this.product.category] || 'index.html';
     }
 
-    setupEventListeners() {
-        // Кнопка запроса цены
-        document.getElementById('requestPriceBtn').addEventListener('click', () => {
-            this.requestPrice();
-        });
-    }
-
-    requestPrice() {
-        const subject = `Запрос цены: ${this.product.name}`;
-        const body = `Здравствуйте!\n\nМеня интересует товар: ${this.product.name}\n\nПрошу предоставить коммерческое предложение.\n\nС уважением,\n[Ваше имя]`;
-        
-        const mailtoLink = `mailto:sales@tsmed.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Пытаемся открыть почтовый клиент
-        const mailWindow = window.open(mailtoLink, '_blank');
-        
-        // Если почтовый клиент не открылся, переходим к контактам
-        setTimeout(() => {
-            if (!mailWindow || mailWindow.closed || typeof mailWindow.closed === 'undefined') {
-                document.getElementById('contacts').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }, 1000);
-    }
-
-    loadRelatedProducts() {
-        // Загружаем товары из той же категории, исключая текущий
-        const relatedProducts = productsByCategory[this.product.category]?.filter(p => p.id !== this.product.id) || [];
-        
-        if (relatedProducts.length > 0) {
-            this.renderRelatedProducts(relatedProducts);
-        } else {
-            document.querySelector('.related-products').style.display = 'none';
-        }
-    }
-
-    renderRelatedProducts(products) {
-        const track = document.getElementById('relatedProductsTrack');
-        const dotsContainer = document.getElementById('relatedProductsDots');
-        
-        track.innerHTML = products.map(product => `
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="${product.image}" alt="${product.name}" 
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-fallback" style="display: none; flex-direction: column; align-items: center; gap: 10px;">
-                        <i class="fas fa-cube" style="font-size: 3rem; color: #2563eb; opacity: 0.7;"></i>
-                        <span style="color: var(--text-light); font-size: 0.9rem; text-align: center;">${product.name}</span>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <a href="product.html?id=${product.id}" class="product-link">
-                        <span>Подробнее</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        `).join('');
-
-        // Инициализируем карусель для связанных товаров
-        this.initRelatedProductsCarousel(products.length);
-    }
-
-    initRelatedProductsCarousel(productsCount) {
-        // Простая реализация карусели для связанных товаров
-        const track = document.getElementById('relatedProductsTrack');
-        const prevBtn = document.querySelector('.related-products .carousel-btn.prev');
-        const nextBtn = document.querySelector('.related-products .carousel-btn.next');
-        const dotsContainer = document.getElementById('relatedProductsDots');
-        
-        let currentSlide = 0;
-        let slidesToShow = this.getSlidesToShow();
-
-        function updateCarousel() {
-            const cardWidth = track.querySelector('.product-card')?.offsetWidth + 24 || 300;
-            const translateX = -currentSlide * cardWidth * slidesToShow;
-            track.style.transform = `translateX(${translateX}px)`;
-            
-            // Обновляем точки
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-            
-            // Обновляем кнопки
-            const maxSlide = Math.ceil(productsCount / slidesToShow) - 1;
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide >= maxSlide;
-        }
-
-        function nextSlide() {
-            const maxSlide = Math.ceil(productsCount / slidesToShow) - 1;
-            if (currentSlide < maxSlide) {
-                currentSlide++;
-                updateCarousel();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateCarousel();
-            }
-        }
-
-        // Создаем точки
-        const totalDots = Math.ceil(productsCount / slidesToShow);
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < totalDots; i++) {
-            const dot = document.createElement('button');
-            dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-            dot.addEventListener('click', () => {
-                currentSlide = i;
-                updateCarousel();
-            });
-            dotsContainer.appendChild(dot);
-        }
-
-        // Назначаем обработчики
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        // Ресайз
-        window.addEventListener('resize', () => {
-            slidesToShow = this.getSlidesToShow();
-            updateCarousel();
-        });
-
-        updateCarousel();
-    }
-
-    getSlidesToShow() {
-        return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
-    }
-
-    showProductNotFound() {
-        document.body.innerHTML = `
-            <div class="product-not-found">
-                <h1>Товар не найден</h1>
-                <p>Запрошенный товар не существует или был удален.</p>
-                <a href="index.html" class="btn btn-primary">Вернуться на главную</a>
-            </div>
-        `;
-    }
 }
 
 // Mobile menu functionality
@@ -388,7 +254,6 @@ class MobileMenu {
     }
 }
 
-// Initialize everything
 document.addEventListener('DOMContentLoaded', function() {
     new MobileMenu();
     new ProductPage();

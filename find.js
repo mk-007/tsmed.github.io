@@ -30,56 +30,72 @@ class ProductSearch {
     }
 
     setupEventListeners() {
-        const searchBtn = document.getElementById('searchBtn');
-        const searchClear = document.getElementById('searchClear');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchClear = document.getElementById('searchClear');
 
-        // Search on button click
-        searchBtn.addEventListener('click', () => this.performSearch());
+    // Search on button click
+    searchBtn.addEventListener('click', () => this.performSearch());
 
-        // Search on Enter key
-        this.searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.performSearch();
-            }
+    // Search on Enter key
+    this.searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            this.performSearch();
+        }
+    });
+
+    // Real-time search with debounce
+    this.searchInput.addEventListener('input', this.debounce(() => {
+        if (this.searchInput.value.length >= 2) {
+            this.performSearch();
+        } else {
+            this.hideResults();
+        }
+    }, 300));
+
+    // Clear search
+    searchClear.addEventListener('click', () => {
+        this.clearSearch();
+    });
+
+    // Show/hide clear button based on input
+    this.searchInput.addEventListener('input', () => {
+        searchClear.style.display = this.searchInput.value ? 'flex' : 'none';
+    });
+
+    // Close results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container-centered') && 
+            !e.target.closest('.search-results')) {
+            this.hideResults();
+        }
+    });
+
+    // Popular tags functionality - УЛУЧШЕННАЯ ВЕРСИЯ
+    this.setupPopularTags();
+}
+
+// Новый метод для настройки популярных тегов
+setupPopularTags() {
+    // Используем делегирование событий для динамически создаваемых элементов
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('search-tag')) {
+            const searchText = e.target.dataset.search;
+            this.searchInput.value = searchText;
+            this.performSearch();
+            this.searchInput.focus();
+        }
+    });
+    
+    // Также добавляем обработчики для существующих элементов
+    document.querySelectorAll('.search-tag').forEach(tag => {
+        tag.addEventListener('click', (e) => {
+            const searchText = e.target.dataset.search;
+            this.searchInput.value = searchText;
+            this.performSearch();
+            this.searchInput.focus();
         });
-
-        // Real-time search with debounce
-        this.searchInput.addEventListener('input', this.debounce(() => {
-            if (this.searchInput.value.length >= 2) {
-                this.performSearch();
-            } else {
-                this.hideResults();
-            }
-        }, 300));
-
-        // Clear search
-        searchClear.addEventListener('click', () => {
-            this.clearSearch();
-        });
-
-        // Show/hide clear button based on input
-        this.searchInput.addEventListener('input', () => {
-            searchClear.style.display = this.searchInput.value ? 'flex' : 'none';
-        });
-
-        // Close results when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container-centered') && 
-                !e.target.closest('.search-results')) {
-                this.hideResults();
-            }
-        });
-
-        // Popular tags functionality
-        document.querySelectorAll('.search-tag').forEach(tag => {
-            tag.addEventListener('click', (e) => {
-                const searchText = e.target.dataset.search;
-                this.searchInput.value = searchText;
-                this.performSearch();
-                this.searchInput.focus();
-            });
-        });
-    }
+    });
+}
 
     // Debounce function to limit search frequency
     debounce(func, wait) {

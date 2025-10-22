@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ООО Торгсин - медицинское оборудование</title>
+    <title>Другое оборудование - ООО "Торгсин"</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,11 @@
 
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
-                <img src="images/logo.png" alt="Торгсин - Медицинское оборудование" class="logo-image">
+                <img src="images/logo.png" alt="Торгсин" class="logo-image">
             </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -28,71 +29,70 @@
                     <li><a href="disinfection-chambers.html">Дезинфекционные камеры</a></li>
                     <li><a href="sterilizers.html">Стерилизаторы</a></li>
                     <li><a href="equipment.html">Оборудование</a></li>
-                    <li><a href="#contacts">Контакты</a></li>
+                    <li><a href="index.html#contacts">Контакты</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="hero product-hero">
+    <!-- Category Hero -->
+    <section class="hero category-hero">
         <div class="container">
-            <div class="product-breadcrumbs">
+            <div class="category-breadcrumbs">
                 <a href="index.html">Главная</a>
                 <i class="fas fa-chevron-right"></i>
-                <a href="#" id="categoryLink">Категория</a>
-                <i class="fas fa-chevron-right"></i>
-                <span id="productNameBreadcrumb">Товар</span>
+                <span>Другое оборудование</span>
             </div>
+            <h1>Другое оборудование</h1>
+            <p>Мы представляем большой диапазон иного медицинского и ветеринарного оборудования</p>
         </div>
     </section>
 
-    <!-- Product Content -->
-    <section class="section product-section">
+    <!-- Search Section -->
+    <section class="section search-section">
         <div class="container">
-            <div class="product-layout">
-                <!-- Gallery -->
-                <div class="product-gallery">
-                    <div class="gallery-main">
-                        <img id="mainImage" src="" alt="" class="main-product-image">
-                    </div>
-                    <div class="gallery-thumbnails" id="galleryThumbnails">
-                    </div>
-                </div>
-
-                <div class="product-info">
-                    <h1 id="productTitle">Название товара</h1>
-                    <p class="product-description" id="productDescription">Описание товара</p>
-                    
-                    <div class="product-specs">
-                        <h3>Основные характеристики</h3>
-                        <div class="specs-grid" id="specsGrid">
-                        </div>
-                    </div>
-
-                    <div class="price-notice">
-                        <i class="fas fa-info-circle"></i>
-                        <p><strong>Цена:</strong> Индивидуальный расчет для каждого заказчика. Для получения коммерческого предложения свяжитесь с нашими менеджерами.</p>
-                    </div>
-
-                    <div class="product-actions">
-                        <button class="btn btn-secondary" onclick="window.location.href='index.html#contacts'">
-                            <i class="fas fa-phone"></i>
-                            Позвонить нам
+            <div class="search-section-content">
+                <h2 class="search-title">Найдите нужную модель</h2>
+                <p class="search-subtitle">Поиск по характеристикам и описанию оборудования</p>
+                
+                <div class="search-container-centered">
+                    <div class="search-box">
+                        <input type="text" 
+                               id="productSearch" 
+                               placeholder="Например: аквадистиллятор, ..." 
+                               class="search-input">
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="search-clear" id="searchClear" style="display: none;">
+                            <i class="fas fa-times"></i>
                         </button>
                     </div>
+                    <div class="search-results" id="searchResults"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section documentation-section">
+    <!-- Products Carousel -->
+    <section class="section products" id="products">
         <div class="container">
-            <h2 class="section-title">Документация</h2>
-            <div class="documents-grid" id="documentsGrid">
+            <h2 class="section-title">Другое оборудование</h2>
+            <div class="products-carousel">
+                <button class="carousel-btn prev" aria-label="Предыдущий товар">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" aria-label="Следующий товар">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-track" id="carouselTrack"></div>
+                <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </div>
     </section>
 
+
+    <!-- Contacts Section -->
     <section class="section" id="contacts">
         <div class="container">
             <h2 class="section-title">Контакты</h2>
@@ -120,7 +120,7 @@
                 </div>
                 <div>
                     <h3>Наш адрес</h3>
-                    <p>г. Нижний Новгород, ул. Горная, д. 11к3</p>
+                    <p>Нижний Новгород, ул. Горная, д.11к3</p>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                     <ul>
                         <li><a href="disinfection-chambers.html"><i class="fas fa-chevron-right"></i> Дезинфекционные камеры</a></li>
                         <li><a href="sterilizers.html"><i class="fas fa-chevron-right"></i> Паровые стерилизаторы</a></li>
-                        <li><a href="equipment.html"><i class="fas fa-chevron-right"></i> Дополнительное оборудование</a></li>
+                        <li><a href="equipment.html"><i class="fas fa-chevron-right"></i> Другое оборудование</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -155,7 +155,10 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="catalog.js"></script>
-    <script src="product.js"></script>
+    <script src="sortconfig.js"></script>
+    <script src="find.js"></script>
+    <script src="category.js"></script>
 </body>
 </html>
